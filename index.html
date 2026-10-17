@@ -452,44 +452,72 @@
     </section>
 
     <!-- INFORMAÇÕES FICTÍCIAS -->
-    <section class="info-card" id="informacoes">
+    
+<section class="dados-card">
+  <h3>Preencha os dados da demonstração</h3>
 
-      <h1 class="info-heading">
-        Dados de demonstração
-      </h1>
+  <form id="formDemonstracao">
+    <label for="documento">Documento fictício</label>
+    <input
+      type="text"
+      id="documento"
+      placeholder="Ex.: XXX.XXX.XXX-XX"
+      required
+    >
 
-      <div class="info-row">
-        <span class="info-icon" aria-hidden="true">▤</span>
-        <span>Documento: XXX.XXX.XXX-XX</span>
-      </div>
+    <label for="nome">Nome de demonstração</label>
+    <input
+      type="text"
+      id="nome"
+      placeholder="Digite um nome de exemplo"
+      required
+    >
 
-      <div class="info-row">
-        <span class="info-icon" aria-hidden="true">♟</span>
-        <span>Nome: Pessoa Exemplo</span>
-      </div>
+    <label for="data">Data</label>
+    <input
+      type="date"
+      id="data"
+      required
+    >
 
-      <div class="info-row">
-        <span class="info-icon" aria-hidden="true">▦</span>
-        <span>Data: DD/MM/AAAA</span>
-      </div>
+    <label for="responsavel">Responsável</label>
+    <input
+      type="text"
+      id="responsavel"
+      placeholder="Digite o responsável"
+      required
+    >
 
-      <div class="info-row">
-        <span class="info-icon" aria-hidden="true">♙</span>
-        <span>Responsável: Não informado</span>
-      </div>
+    <label for="resultado">Resultado da demonstração</label>
+    <textarea
+      id="resultado"
+      placeholder="Descreva o resultado"
+      rows="3"
+      required
+    ></textarea>
 
-      <div class="info-row">
-        <span class="info-icon" aria-hidden="true">⌕</span>
-        <span>Resultado: simulação sem consulta real</span>
-      </div>
+    <button type="submit" class="botao-salvar">
+      Salvar demonstração
+    </button>
 
-      <div style="padding: 8px 0 10px">
-        <span class="status">
-          ● Demonstração — nenhum dado consultado
-        </span>
-      </div>
+    <p id="mensagem" role="status"></p>
+  </form>
 
-    </section>
+  <div class="aviso-demo">
+    Demonstração — os dados não são enviados a um servidor.
+  </div>
+</section>
+
+<script>
+  document.getElementById("formDemonstracao")
+    .addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      document.getElementById("mensagem").textContent =
+        "Demonstração preenchida com sucesso!";
+    });
+</script>
+
 
     <!-- COMENTÁRIO FICTÍCIO -->
     <section class="comments" aria-label="Exemplo de comentário">
