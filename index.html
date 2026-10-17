@@ -1,0 +1,545 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#EC0075">
+
+  <title>Portal Cidadão | Demonstração Educativa</title>
+
+  <style>
+    :root {
+      --rosa: #EC0075;
+      --rosa-claro: #EC0075;
+      --azul: #EC0075;
+      --azul-escuro: #EC0075;
+      --fundo: #fff5fa;
+      --texto: #3f4853;
+      --borda: #f2c5dc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--texto);
+      background: var(--fundo);
+    }
+
+    /* CABEÇALHO */
+    .topbar {
+      min-height: 78px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: #fff;
+      border-bottom: 3px solid var(--rosa);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .brand img {
+      display: block;
+      width: 125px;
+      max-height: 48px;
+      object-fit: contain;
+    }
+
+    .brand-fallback {
+      color: var(--rosa);
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .top-actions a {
+      color: var(--rosa);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--rosa);
+      color: white;
+      padding: 9px 13px;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* NAVEGAÇÃO */
+    .navigation {
+      min-height: 48px;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+      background: #fff;
+      border-bottom: 1px solid var(--borda);
+      font-size: 13px;
+    }
+
+    .navigation a {
+      color: #455467;
+      text-decoration: none;
+    }
+
+    .navigation .separator,
+    .navigation .current {
+      color: var(--rosa);
+    }
+
+    .navigation .current {
+      font-weight: bold;
+    }
+
+    /* AVISO EDUCATIVO */
+    .demo-notice {
+      margin: 16px 14px 0;
+      padding: 10px 12px;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      background: #ffe6f2;
+      color: #8f0048;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* CONTEÚDO PRINCIPAL */
+    .page {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 16px 14px 28px;
+    }
+
+    /* BARRA DE PROGRESSO */
+    .progress-track {
+      height: 15px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #dedede;
+      box-shadow: inset 0 1px 3px #00000014;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 12px;
+      background: #EC0075;
+      animation: preencher 10s linear forwards;
+    }
+
+    @keyframes preencher {
+      from {
+        width: 0%;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    /* BANNER ILUSTRATIVO */
+    .banner {
+      position: relative;
+      height: 208px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      border-radius: 9px;
+      background: var(--rosa);
+      box-shadow: 0 3px 8px #00000010;
+    }
+
+    .banner img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .banner-caption {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 35px 12px 17px;
+      text-align: center;
+      color: #fff;
+      background: linear-gradient(
+        transparent,
+        #60002fef
+      );
+      pointer-events: none;
+    }
+
+    .banner-caption strong {
+      display: block;
+      font-size: 20px;
+      line-height: 1.3;
+      text-shadow: 0 2px 4px #0008;
+    }
+
+    .banner-caption span {
+      display: block;
+      margin-top: 7px;
+      font-size: 14px;
+    }
+
+    /* CARTÃO DE INFORMAÇÕES */
+    .info-card {
+      padding: 15px 15px 9px;
+      margin-bottom: 15px;
+      background: #fff;
+      border: 1px solid #f0dce6;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px #0000000c;
+    }
+
+    .info-heading {
+      margin-bottom: 8px;
+      color: var(--rosa);
+      font-size: 16px;
+    }
+
+    .info-row {
+      min-height: 47px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .info-icon {
+      flex: 0 0 19px;
+      color: var(--rosa);
+      text-align: center;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 9px;
+      border-radius: 6px;
+      background: #ffe6f2;
+      color: #8f0048;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* COMENTÁRIO ILUSTRATIVO */
+    .comments {
+      padding: 0;
+      margin-top: 20px;
+      background: #fff;
+      border-top: 1px solid var(--borda);
+    }
+
+    .comments-title {
+      padding: 17px 8px 13px;
+      border-bottom: 1px solid #f1e4eb;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .comment {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding-top: 15px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 50%;
+      background: #ffe6f2;
+      color: var(--rosa);
+      font-weight: bold;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .comment-body {
+      flex: 1;
+      min-width: 0;
+      padding: 12px;
+      background: #fff5fa;
+      border-radius: 12px;
+    }
+
+    .comment-name {
+      margin-bottom: 7px;
+      color: var(--rosa);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .comment-text {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .comment-label {
+      margin-top: 9px;
+      color: #6c7480;
+      font-size: 11px;
+    }
+
+    /* RODAPÉ */
+    .footer {
+      padding: 18px;
+      background: #fff;
+      border-top: 1px solid var(--borda);
+      color: #687382;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* TELAS MENORES */
+    @media (max-width: 480px) {
+      .topbar {
+        min-height: 70px;
+        padding: 0 15px;
+        gap: 8px;
+      }
+
+      .brand img {
+        width: 105px;
+      }
+
+      .top-actions {
+        gap: 10px;
+      }
+
+      .top-actions a {
+        font-size: 12px;
+      }
+
+      .user-chip {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+      .navigation {
+        padding: 12px 16px;
+        gap: 6px;
+        font-size: 12px;
+      }
+
+      .banner {
+        height: 208px;
+      }
+
+      .banner-caption strong {
+        font-size: 18px;
+      }
+    }
+
+    /* RESPEITA PREFERÊNCIA POR MENOS MOVIMENTO */
+    @media (prefers-reduced-motion: reduce) {
+      .progress-fill {
+        animation: none;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- CABEÇALHO -->
+  <header class="topbar">
+
+    <a class="brand" href="#inicio" aria-label="Portal demonstrativo">
+
+      <img
+        src="img/logo-portal.webp"
+        alt="Logo do portal demonstrativo"
+        onerror="this.style.display='none';this.nextElementSibling.hidden=false"
+      >
+
+      <span class="brand-fallback" hidden>
+        Portal Cidadão
+      </span>
+
+    </a>
+
+    <div class="top-actions">
+      <a href="#navegacao" aria-label="Menu">⋮</a>
+      <a href="#informacoes" aria-label="Informações">▦</a>
+      <span class="user-chip">● Visitante</span>
+    </div>
+
+  </header>
+
+  <!-- NAVEGAÇÃO -->
+  <nav class="navigation" id="navegacao">
+    <a href="#inicio">☰ Menu</a>
+    <span class="separator">›</span>
+    <a href="#informacoes">Consulta demonstrativa</a>
+    <span class="separator">›</span>
+    <span class="current">Análise ilustrativa</span>
+  </nav>
+
+  <!-- IDENTIFICAÇÃO DA SIMULAÇÃO -->
+  <div class="demo-notice">
+    <strong>SIMULAÇÃO EDUCATIVA:</strong>
+    página fictícia para demonstração de segurança digital.
+    Não é um portal governamental nem consulta dados oficiais.
+  </div>
+
+  <main class="page" id="inicio">
+
+    <!-- PROGRESSO DE 10 SEGUNDOS -->
+    <div
+      class="progress-track"
+      role="progressbar"
+      aria-label="Progresso da animação demonstrativa"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+    >
+      <div class="progress-fill"></div>
+    </div>
+
+    <!-- BANNER -->
+    <section class="banner" aria-label="Banner ilustrativo">
+
+      <img
+        src="img/banner02inicial.webp"
+        alt="Imagem ilustrativa sobre segurança financeira"
+      >
+
+      <div class="banner-caption">
+        <strong>EXEMPLO DE CONSULTA</strong>
+        <span>Conteúdo fictício para fins educativos</span>
+      </div>
+
+    </section>
+
+    <!-- INFORMAÇÕES FICTÍCIAS -->
+    <section class="info-card" id="informacoes">
+
+      <h1 class="info-heading">
+        Dados de demonstração
+      </h1>
+
+      <div class="info-row">
+        <span class="info-icon" aria-hidden="true">▤</span>
+        <span>Documento: XXX.XXX.XXX-XX</span>
+      </div>
+
+      <div class="info-row">
+        <span class="info-icon" aria-hidden="true">♟</span>
+        <span>Nome: Pessoa Exemplo</span>
+      </div>
+
+      <div class="info-row">
+        <span class="info-icon" aria-hidden="true">▦</span>
+        <span>Data: DD/MM/AAAA</span>
+      </div>
+
+      <div class="info-row">
+        <span class="info-icon" aria-hidden="true">♙</span>
+        <span>Responsável: Não informado</span>
+      </div>
+
+      <div class="info-row">
+        <span class="info-icon" aria-hidden="true">⌕</span>
+        <span>Resultado: simulação sem consulta real</span>
+      </div>
+
+      <div style="padding: 8px 0 10px">
+        <span class="status">
+          ● Demonstração — nenhum dado consultado
+        </span>
+      </div>
+
+    </section>
+
+    <!-- COMENTÁRIO FICTÍCIO -->
+    <section class="comments" aria-label="Exemplo de comentário">
+
+      <h2 class="comments-title">
+        Exemplo de comentário
+      </h2>
+
+      <article class="comment">
+
+        <div class="avatar" aria-hidden="true">
+
+          <img
+            src="img/avatar01.webp"
+            alt=""
+            onerror="this.style.display='none';this.parentElement.textContent='EX'"
+          >
+
+        </div>
+
+        <div class="comment-body">
+
+          <p class="comment-name">
+            Usuário demonstrativo
+          </p>
+
+          <p class="comment-text">
+            Este espaço ilustra como comentários podem aparecer
+            em uma página. O conteúdo não representa um relato real.
+          </p>
+
+          <p class="comment-label">
+            Comentário fictício • Exemplo educativo
+          </p>
+
+        </div>
+
+      </article>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    Demonstração educativa de segurança digital.<br>
+    Marca e informações fictícias, sem vínculo com órgãos oficiais.
+  </footer>
+
+</body>
+</html>
