@@ -361,3 +361,25 @@
 
 </body>
 </html>
+
+<script>
+  document
+    .getElementById("formDemonstracao")
+    .addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById("nome").value.trim();
+      const mensagem = document.getElementById("mensagem");
+
+      if (!nome) {
+        mensagem.textContent = "Digite um nome para a demonstração.";
+        return;
+      }
+
+      // Salva somente o nome de demonstração nesta sessão.
+      sessionStorage.setItem("nomeLead", nome);
+
+      mensagem.textContent =
+        "Nome de demonstração salvo nesta sessão. Nenhum outro dado foi armazenado.";
+    });
+</script>
